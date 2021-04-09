@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a;
+        var obj={};
+
+        function numToObject(a) {
+            var a;
+            var obj = {};
+            if (a > 999) {
+                console.log('Число больше 999');
+                alert("Число больше 999");
+            }
+            else {
+                obj["единицы"] = a - Math.floor(a / 10) * 10;
+                obj["десятки"] = Math.floor((a - Math.floor(a / 100)*100) / 10);
+                obj["сотни"] = Math.floor(a / 100);
+            }
+
+            return(obj);
+        }
+
+        while (true) {
+
+            a = Number(prompt('Введи число от 0 до 999, плиз'));
+
+            if ((isNaN(a)) || (a < 0)) {
+                alert("Ошибка ввода, пробуй снова");
+                continue;
+            }
+            break;
+        }
+
+        obj = numToObject(a);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var basket = {
+            basketItems: {
+                item1: {
+                    itemName: "Плащ на высоких каблуках",
+                    itemPrice: 1000000,
+                    itemQ: 1,
+                    totalCostOfPosition: function () {
+                        var totalCostItem = 0;
+                        totalCostItem = this.itemPrice * this.itemQ;
+                        return (totalCostItem);
+                    }
+                },
+
+                item2: {
+                    itemName: "Шляпа с длинными рукавами",
+                    itemPrice: 100,
+                    itemQ: 2,
+                    totalCostOfPosition: function () {
+                        var totalCostItem = 0;
+                        totalCostItem = this.itemPrice * this.itemQ;
+                        return (totalCostItem);
+                    }
+                },
+
+                item3: {
+                    itemName: "Стильные туфли без подошвы",
+                    itemPrice: 10000,
+                    itemQ: 5,
+                    totalCostOfPosition: function () {
+                        var totalCostItem = 0;
+                        totalCostItem = this.itemPrice * this.itemQ;
+                        return (totalCostItem);
+                    }
+                }
+            },
+
+
+            countBasketPrice: function () {
+                var totalCost = 0;
+
+                var itemCounter = 0;
+
+                for (const itemView in basket.basketItems) {
+                    itemCounter++;
+
+                    itemInfo = 'item' + itemCounter;
+
+                    basket.basketItems[itemInfo].totalCostOfPosition();
+
+                    totalCost = totalCost + basket.basketItems[itemInfo].totalCostOfPosition();
+
+                }
+
+                return (totalCost);
+            }
+        };
+
+        document.writeln(basket.basketItems.item1.totalCostOfPosition());
+        document.writeln(basket.basketItems.item2.totalCostOfPosition());
+        document.writeln(basket.basketItems.item3.totalCostOfPosition());
+
+        document.writeln(basket.countBasketPrice());
+
+    </script>
+</body>
+
+</html>
