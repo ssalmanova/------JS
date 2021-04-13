@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="basketArea"></div>
+    <script>
+
+var basket = {
+            basketItems: {
+                item1: {
+                    itemName: "Плащ на высоких каблуках",
+                    itemPrice: 1000000,
+                    itemQ: 1,
+                    totalCostOfPosition: function () {
+                        var totalCostItem = 0;
+                        totalCostItem = this.itemPrice * this.itemQ;
+                        return (totalCostItem);
+                    }
+                },
+
+                item2: {
+                    itemName: "Шляпа с длинными рукавами",
+                    itemPrice: 100,
+                    itemQ: 2,
+                    totalCostOfPosition: function () {
+                        var totalCostItem = 0;
+                        totalCostItem = this.itemPrice * this.itemQ;
+                        return (totalCostItem);
+                    }
+                },
+
+                item3: {
+                    itemName: "Стильные туфли без подошвы",
+                    itemPrice: 10000,
+                    itemQ: 5,
+                    totalCostOfPosition: function () {
+                        var totalCostItem = 0;
+                        totalCostItem = this.itemPrice * this.itemQ;
+                        return (totalCostItem);
+                    }
+                }
+            },
+
+
+            countBasketPrice: function () {
+                var totalCost = 0;
+
+                var itemCounter = 0;
+
+
+                for (const itemView in basket.basketItems) {
+                    itemCounter++;
+
+                    itemInfo = 'item' + itemCounter;
+
+                    basket.basketItems[itemInfo].totalCostOfPosition();
+
+                    totalCost = totalCost + basket.basketItems[itemInfo].totalCostOfPosition();
+
+                }
+            
+
+                return (totalCost);
+            }
+        };
+    
+    function basketWatch() {
+
+
+        if (basket.basketItems.hasOwnProperty("item1") == false) {
+            var BasketInfo = document.createElement("div");
+            BasketInfo.innerHTML = "Корзина пуста! :'(";
+            basketArea.appendChild(BasketInfo);
+        }
+        else {
+            var itemCounter = 0;
+            var itemQsum = 0;
+
+                for (const key in basket.basketItems) {
+                    itemCounter++;
+                    itemInfo = 'item' + itemCounter;
+                    basket.basketItems[itemInfo]
+
+                    var BasketInfo = document.createElement("div");
+                    BasketInfo.innerHTML = "Название товара: " + basket.basketItems[itemInfo].itemName+"<br>";
+                    
+                    BasketInfo.innerHTML += "Цена товара: " + basket.basketItems[itemInfo].itemPrice+"<br>";
+
+                    itemQsum = itemQsum + basket.basketItems[itemInfo].itemQ;
+
+                    BasketInfo.innerHTML += "Кол-во товара: " + basket.basketItems[itemInfo].itemQ+"<br>";
+                    basketArea.appendChild(BasketInfo);
+                        
+                    }
+
+                    BasketInfo = document.createElement("div");
+                    BasketInfo.innerHTML = "Всего позиций: " + itemCounter + ",  итого товаров: " + itemQsum + ", на сумму: " + basket.countBasketPrice();
+                    basketArea.appendChild(BasketInfo);
+                }
+
+        }
+    
+
+    basketWatch();
+
+    </script>
+</body>
+</html>
