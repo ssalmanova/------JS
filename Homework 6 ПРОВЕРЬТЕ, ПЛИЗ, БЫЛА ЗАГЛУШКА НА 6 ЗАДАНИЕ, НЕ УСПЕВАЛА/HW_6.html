@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="catalogArea"></div>
+    <div class="basketArea"></div>
+
+
+    <script>
+        "use strict";
+        var catalog = {
+            items: [
+                    {
+                        itemID: 1,
+                        itemName: "Плащ на высоких каблуках",
+                        itemPrice: 1000000,
+                    },
+
+                    {
+                        itemID: 2,
+                        itemName: "Шляпа с длинными рукавами",
+                        itemPrice: 200,
+                    },
+
+                    {
+                        itemID: 3,
+                        itemName: "Стильные туфли без подошвы",
+                        itemPrice: 10000,
+                    }
+            ],
+
+            catalogInit() {
+
+                var catalogDraft = document.querySelector('.catalogArea');
+
+                if (this.items.length == 0) {
+                    catalogDraft.insertAdjacentHTML('beforeend', "Ничего не продаём)))");
+                } else {
+                    this.items.forEach(element => {
+                    catalogDraft.insertAdjacentHTML('beforeend', this.itemRenderHTML(element));
+                });
+                } ;
+            },
+
+            itemRenderHTML(element) {
+                return `<div class="itemBlock">
+                <h3> ${element.itemName} </h3>
+                <p> ${element.itemPrice} руб.</p>
+                <button class="addToBasket" id="${element.itemID}" onclick="catalog.addToBasket(${element.itemID})">Купить</button>
+            </div>`;
+            },
+
+            addToBasket(elementItemID) {
+                
+                var itemInBasket = basket.items.find(item => item.itemID == elementItemID); 
+
+                if (itemInBasket) {
+                    itemInBasket.itemQuantity++;
+                    itemInBasket.totalPrice = itemInBasket.itemQuantity * itemInBasket.itemPrice;
+
+                } else {
+                    var itemToAdd = this.items.find(item => item.itemID == elementItemID);
+                    itemToAdd.itemQuantity = 1;
+                    itemToAdd.totalPrice = itemToAdd.itemPrice;
+                    basket.items.push(itemToAdd);
+                }
+                
+                basket.basketInit();
+            }
+            
+        };
+
+        var basket = {
+            items: [],
+            totalCount: 0,
+            totalPrice: 0,
+            basketInit() {
+
+                var basketDraft = document.querySelector('.basketArea');
+                console.log(basketDraft);
+
+                if (this.items.length == 0) {
+                    basketDraft.insertAdjacentHTML('beforeend', '<h2>В корзине ничего</h2>');
+                    basket.totalCount = 0;
+                    basket.totalPrice = 0;
+                } else {
+                    basketDraft.innerHTML = '<h2>В корзине:<h2>';
+                    basket.totalCount = 0;
+                    basket.totalPrice = 0;
+                    
+                    this.items.forEach(element => {
+                        basketDraft.insertAdjacentHTML('beforeend', this.basketItemRenderHTML(element));
+                        basket.totalCount += element.itemQuantity;
+                        basket.totalPrice += element.totalPrice;
+                    });
+
+                    basketDraft.insertAdjacentHTML('beforeend', `<p>Всего товаров в корзине: ${basket.totalCount}<p>
+                    <p>Общая стоимость корзины: ${basket.totalPrice}</p>`);
+                    
+                    
+                };
+            },
+
+            basketItemRenderHTML(element) {
+                return `<div class="BasketitemBlock">
+                <h3> ${element.itemName} </h3>
+                <p> Цена: ${element.itemPrice} руб.</p>
+                <p> Количество: ${element.itemQuantity} </p>
+                <p> Стоимость позиции: ${element.totalPrice} </p>
+                
+            </div>`}, 
+        };
+
+        catalog.catalogInit();
+        basket.basketInit();
+        
+
+
+    </script>
+</body>
+</html>
